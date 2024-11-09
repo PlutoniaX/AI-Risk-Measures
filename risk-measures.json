@@ -1,0 +1,1272 @@
+{
+    "Model Development": [
+        {
+            "Data-related": [
+                {
+                    "Risk management measure": {
+                        "title": "Documentation of data collection, annotation, maintenance practices",
+                        "description": "Dataset collection, annotation, and maintenance processes can be documented in detail, including potential unintentional misuse scenarios and corresponding recommendations for data usage. This contributes to transparency, ensures that inherent dataset limitations are known in advance, and helps in selecting the right datasets for intended use cases."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Difficulty filtering large web scrapes or large scale web datasets",
+                        "description": "A large scale “scraping” of web data for training datasets increases vulnerability to data poisoning, backdoor attacks, and the inclusion of inaccurate or toxic data. With a large dataset, filtering out these quality issues is very difficult or trades off against significant data loss."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Use of synthetic data",
+                        "description": "Synthetic data refers to data that is not collected from the real world. It is used to train AI models as an alternative to, or augmentation of, natural data. Effective use and generation of synthetic data allows for more oversight by the trainer on the training dataset because they have more control over its statistical properties. Synthetic data can help against dataset bias by having more samples from a particular distribution or minority group. It can also help in privacy by having more samples to mask sensitive data."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Lack of cross-organizational documentation",
+                        "description": "When sharing data between multiple organizations, documentation may be missing or inadequate, making it difficult for other organizations to understand it. For example, a lack of metadata or a change in schema by a collaborating party can result in an unusable dataset and wasted data collection efforts, or it can lead to misunderstandings about the dataset’s limitations, resulting in downstream risks related to its use."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Manipulation of data by non-domain experts",
+                        "description": "Manipulating data (e.g., training data) carries a set of assumptions on how the data should appear and be used by those performing the manipulation. Common manipulations applied on data in the context of AI models include defining the ground truth label and merging different data formats or sources. People who have little or no expertise in the domain of the data performing such manipulations may render the data unusable or harmful to the development of the AI system."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Insufficient quality control in data collection process",
+                        "description": "A lack of standardized methods and sufficient infrastructure, including the absence of quality control processes for collecting data, especially for high-stakes domains and benchmarks, can affect the quality and type of the data collected. This may include risks of dataset poisoning, inadvertent copyright violation, and test set leakages which invalidate performance metrics."
+                    }
+                }
+            ]
+        },
+        {
+            "Training-related": [
+                {
+                    "Risk management measure (Experimental)": {
+                        "title": "Cost-inducing training of AI models specifically for malicious use",
+                        "description": "AI models can be designed to make further post-training modifications (e.g., fine-tuning) too costly for malicious uses while preserving normal adaptability for non-malicious uses."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Restrict web access during AI training",
+                        "description": "Developers can restrict or disable AI systems’ internet access during training. For example, developers can restrict web access to read-only (e.g., by disabling write-access through HTTP POST requests and access to web forms) or limit the access of the AI system to a local network. This can prevent an AI system from overloading third-party web services by making too many requests, or posting inadequate or harmful content to the internet before being trained or fine-tuned not to produce harmful outputs."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Adversarial examples",
+                        "description": "Adversarial examples refer to data that are designed to fool an AI model by inducing unintended behavior. They do this by exploiting spurious correlations learned by the model. They are part of inference-time attacks, where the examples are test examples. They generalize to different model architectures and models trained on different training sets. Unintended behavior can range from incorrect predictions with respect to the ground-truth prediction to outputs that are generally considered undesirable (e.g., toxic or harmful). For example, when an autonomous vehicle’s sensor sees a stop sign with an adversarial sticker, the vehicle’s AI system may misclassify the stop sign as an indicator for the vehicle to accelerate."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Adversarial training",
+                        "description": "Adversarial training is a technique for training AI models in which adversarial inputs are generated for a model, and the model is then trained to give the correct outputs for those adversarial inputs. Adversarial training can involve adversarial examples generated by human experts, human users, or other AI systems."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Robust overfitting in adversarial training",
+                        "description": "Adversarial training can be affected by robust overfitting, where the model’s robustness on test data decreases during further training, particularly after the learning rate decay. This issue has been consistently observed across various datasets and algorithms in adversarial training settings. Robust overfitting can affect the model’s ability to generalize effectively and reduce its resilience to adversarial attacks."
+                    }
+                },
+                {
+                    "Risk management measure (Experimental)": {
+                        "title": "Robustness certificates",
+                        "description": "A model can be certified to withstand adversarial attacks given specific datapoint constraints, model constraints, and attack vectors. Certification means that it can be both analytically proven and shown empirically that the model will withstand such attacks up to a certain threshold. Currently, robustness certification methods are limited to certifying against attacks via manipulation of pixels on specific ℓp norms, canonically the ℓ2 (Euclidean) norm, up to a certain neighborhood radius."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Robustness certificates can be exploited to attack the models",
+                        "description": "The knowledge of robustness certificates, including the area of the region for which model predictions are certified to be robust, can be used by an adversary to efficiently craft attacks that succeed just outside the certified regions."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Poor model confidence calibration",
+                        "description": "Models can be affected by poor confidence calibration, where the predicted probabilities do not accurately reflect the true likelihood of ground truth correctness. This miscalibration makes it difficult to interpret the model’s predictions reliably, as high accuracy does not guarantee that the confidence levels are meaningful. This can cause overconfidence in incorrect predictions or underconfidence in correct ones."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Calibrated confidence measures for model predictions",
+                        "description": "Incorporating calibrated confidence measures alongside a model’s predictions and standard performance metrics, such as accuracy, can help users identify instances of overconfidence in incorrect predictions or underconfidence in correct ones. These additional measures can provide users with more information to better interpret the model’s decisions and assess whether its predictions can be trusted."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Incorporating the estimation of atypical input samples or classes for better model reliability",
+                        "description": "Incorporating the estimation of rare atypical input samples or classes might improve a model’s reliability, both with respect to its predictions and confidence calibration. Model predictions for rare inputs and classes may have a tendency of being overconfident and have worse accuracy scores. For LLMs, the negative log-likelihood can be used as an atypicality measure. For discriminative models, Gaussian Mixture Models can be employed to estimate conditional and marginal distributions, which are then used in atypicality measurement."
+                    }
+                }
+            ]
+        },
+        {
+            "Fine-tuning-related": [
+                {
+                    "Risk source": {
+                        "title": "Ease of reconfiguring GPAI models",
+                        "description": "GPAI models are often easily reconfigured for various use cases or have competencies beyond the intended use. They can be performed either by changing the weights of the model (e.g., fine-tuning) or by modifying only the model inputs (e.g., prompt engineering, jailbreaking, retrieval-augmented generation). Reconfiguration can be intentional (with the help of adversarial inputs) or unintentional (from unanticipated inputs to the model)."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Unexpected competence in fine-tuned versions of the upstream model",
+                        "description": "Downstream deployers may often fine-tune a GPAI model with specific deployment-related datasets, to better suit the task. Fine-tuned upstream models can gain new or unexpected capabilities that the underlying upstream models did not exhibit. These new capabilities may be unanticipated by the original model developer."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Harmful fine-tuning of open-weights models",
+                        "description": "Models with publicly available weights can be fine-tuned for harmful activities by bad actors, using significantly fewer resources (in terms of time and money) compared to the original training cost."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Fine-tuning dataset poisoning",
+                        "description": "A deployer can poison the dataset used during the fine-tuning process to induce specific, often malicious, behaviors in a model. This can be performed without having access to the model’s weights. This poisoning can be difficult to detect through direct inspection of the dataset, as the manipulations may be subtle and targeted."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Data cleaning",
+                        "description": "Providers can filter out the training dataset via multiple layered techniques, ranging from rule-based filters to anomaly detection via data point influence or statistical anomalies of individual data points. For example, a data cleaning procedure can involve the use of filename checkers to detect duplicates or wrongly formatted data, which then moves to flagging the most influential data samples from the dataset via influence functions for anomaly detection."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Internal data poisoning diagnosis",
+                        "description": "Providers can have an internal framework to identify what specific data poisoning attack their model may be a victim of based on a set of symptoms, such as analysis of target algorithm and architecture, perturbation scope and dimension, victim model, and data type. This framework includes known defenses against the diagnosed attack, which providers can then apply to the model."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Poisoning models during instruction tuning",
+                        "description": "AI models can be poisoned during instruction tuning when models are tuned using pairs of instructions and desired outputs. Poisoning in instruction tuning can be achieved with a lower number of compromised samples, as instruction tuning requires a relatively small number of samples for fine-tuning. Anonymous crowdsourcing efforts may be employed in collecting instruction tuning datasets and can further contribute to poisoning attacks. These attacks might be harder to detect than traditional data poisoning attacks."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Excessive or overly restrictive safety-tuning",
+                        "description": "Excessive safety training or safety tuning can impair the performance of AI systems, leading to overly cautious behavior. As a result, these systems may refuse to answer entirely safe prompts which are partially similar to harmful ones."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Degrading safety training due to benign fine-tuning",
+                        "description": "When downstream providers of AI systems fine-tune AI models to be more suitable for their needs, the resulting AI model can be more likely to produce undesired or harmful outputs (as compared to the non-fine-tuned model), even if the fine-tuning was done with harmless and commonly used data."
+                    }
+                },
+                {
+                    "Risk management measure (Experimental)": {
+                        "title": "Tamper-resistant safeguards for open-weight models",
+                        "description": "Training and implementing safeguards can improve the robustness of open-weight models against modifications from fine-tuning or other methods to change the learned weights of the models, especially those aimed at removing safety restrictions. These safeguards can be resilient even after extensive fine-tuning, ensuring that the model retains its protective measures."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Catastrophic forgetting due to continual instruction fine-tuning",
+                        "description": "Catastrophic forgetting occurs when a model loses its ability to retain previously learned tasks (or factual information) after being trained on new ones. In language models, this can occur due to continual instruction tuning. This tendency may become more pronounced as the model’s size increases."
+                    }
+                }
+            ]
+        }
+    ],
+    "Model Evaluations": [
+        {
+            "General Evaluations": [
+                {
+                    "Risk management measure": {
+                        "title": "Frequent testing when scaling model or dataset",
+                        "description": "Testing models after significant increases in compute, data, or model parameters. Even relatively small changes to model or dataset size can introduce new properties (“emergent abilities”) and failure modes. Identifying them early can prevent the models from being released prematurely."
+                    }
+                },
+                {
+                    "Risk management measure (Experimental)": {
+                        "title": "Using an AI model to evaluate AI model outputs",
+                        "description": "In cases where the outputs of AI models cannot be easily evaluated, AI models can be used to evaluate their outputs or the outputs of other AI models. The evaluations can then provide a training signal to improve the original model’s performance or offer explanations of the output for human users."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Incorrect outputs of GPAI evaluating other AI models",
+                        "description": "When an LLM is configured to evaluate the performance of another model or AI system, it may produce incorrect evaluation outputs. For example, it may give a higher rating to a more verbose answer or an answer from a particular political stance. If an LLM-based evaluation is integrated into the training of a new model, the trained model could develop in a way that specifically finds and exploits limitations in the evaluator’s metrics."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Limited coverage of capabilities evaluations",
+                        "description": "GPAI model developers might run capabilities evaluations to determine whether it has dangerous or dual-use capabilities, and then decide whether it is safe to deploy. Such capabilities evaluations can fail to demonstrate all the capabilities of a model. For example, evaluations may miss certain capabilities that are difficult to assess, prohibitively costly to verify, or obscured by the model’s tendency to refuse responses due to safety training, even if it possesses some of these capabilities."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Difficulty of identification and measurement of capabilities",
+                        "description": "The capabilities of general-purpose AI systems can be difficult to measure, compared to the capabilities of more limited and fixed-purpose AI systems. This is in part due to a broader distribution of potential risks, a lack of well-defined metrics to evaluate these risks, and risks from unpredictable (or emergent) AI model properties. Emergent properties are properties that cannot be predicted by extrapolating benchmark performance from smaller AI models, and may arise during training or deployment. Such properties are more likely with large models. They can be especially difficult to detect since there are a large number of possible emergent properties of trained AI systems, but there does not currently exist a principled way of discovering the properties of a system from its components and weights alone. For example, a more advanced general-purpose AI system can generate images of a superior quality by a specialized prompt compared to generation without one, a property that did not exist in smaller or less advanced models of this type. There is currently no systematic method to identify such behaviors."
+                    }
+                },
+                {
+                    "Risk management measure (Experimental)": {
+                        "title": "GPAI models explaining model outputs in a zero-sum debate game",
+                        "description": "Debate is a technique that aims to produce reliable explanations of AI model outputs that are too complicated for humans to understand, by letting two GPAI models role-playing in a debate produce an explanation in a dialogue. For example, an AI model may produce an output which is time-consuming for humans to verify as doing so may require going through extensive sources. Given such an output, the developer can use two natural language AI systems in an adversarial two-player setup to explain the output. These two natural language AI systems can be copies of the AI model that produced the output. In this setup, one AI system gives a short explanation of the output. The second AI system responds to this explanation with a counter-explanation or an argument why the first explanation was not correct. This continues for a fixed number of turns, with the two AI systems pointing out inconsistencies in each others’ explanations. After this sequence of statements, a human or an AI judge evaluates the explanations of both AI systems to determine which one is more convincing. The results of this debate can then be used for further training of the models via reinforcement learning, where outputs that are more truthful and convincing arguments and explanations are positively reinforced, while misleading or false outputs are negatively reinforced."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Self-preference bias in AI models",
+                        "description": "AI models may be prone to self-preference bias, where they favor their own generated content over that of others. This bias becomes particularly relevant in self-evaluation tasks, where a model assesses the quality or persuasiveness of its own outputs, or in model-based evaluations more broadly. This bias can result in models unfairly discriminating against human-generated content in favor of their own outputs."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Inaccurate measurement of model encoded human values",
+                        "description": "There is a lack of robust frameworks for understanding and evaluating if the output of AI systems robustly conforms to human values, as opposed to if the systems have learned to produce outputs that are only partially correlated with them (i.e., mimicking). Additionally, outputs by AI models often do not perfectly reflect the representation of human values learned by the model, and it is not known how these values evolve and transition across different stages of model training and deployment. Such evaluations may be especially challenging with LLMs that adopt different personas with different behaviorial patterns, where they do not consistently conform to certain human values."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Biased evaluations of encoded human values",
+                        "description": "Encoded human values in AI models that are easier to evaluate might be preferred for inclusion in evaluations over those that are more difficult to measure. This might come at the expense of more desirable but harder-to-quantify values. This bias can lead to an imbalance, where easier-to-measure values dominate the evaluation process, while other important values are underrepresented."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "AI outputs for which evaluation is too difficult for humans",
+                        "description": "When AI models are trained through evaluation with human feedback, such as reinforcement learning from human feedback, their outputs can be challenging to assess, as they may contain hard-to-detect errors or issues that only become apparent over time. The human evaluator can rate incorrect outputs positively or similar to correct outputs. This can lead to the model learning to produce subtly incorrect or harmful outputs, such as code with software vulnerabilities, or politically biased information. In extreme cases where a model is deceiving users, complicated outputs can contain hidden errors or backdoors. For example, this can occur if an AI model is tasked with outputting a quarterly business plan whose quality will only be clear after the end of the quarter. Reaching consensus among experts when evaluating the business plan for efficacy may not happen even after long deliberation due to long-term uncertainty or unexpected events that affect plan efficacy."
+                    }
+                }
+            ]
+        },
+        {
+            "Benchmarking": [
+                {
+                    "Risk management measure": {
+                        "title": "Benchmarking",
+                        "description": "Benchmarking is an evaluation method where different models are compared against a standardized dataset or a predetermined task. It allows comparison both across different models and over time, providing a reference point for model assessment. Benchmarks are usually open, where their question-answer pairs are publicly available."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Test robustness of GPAI system on relevant benchmarks",
+                        "description": "Various benchmarks have been developed to assess the robustness of GPAI systems when deployed in environments or scenarios that differ from their training conditions. These benchmarks typically evaluate the model’s ability to handle variations in inputs, unexpected data distributions, or adversarial examples, aiming to ensure reliable performance outside the original training domain."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Frequent benchmarking to identify when red teaming is needed",
+                        "description": "Benchmarks, once created, are inexpensive to apply but may be less informative than red teaming. One reason is that sensitive data (e.g., relating to CBRN-related capabilities) cannot be included in the public questions and answers of benchmarks. On the other hand, red teaming can be more accurate given participants with diverse attack strategies, but it requires more resources to execute than benchmarking. If there is a correlation between benchmarking and red-teaming scores, then employing frequent benchmarking during the development of the model can identify arising vulnerabilities and inform the developers when more thorough red teaming is required. Benchmarks can act as early warning signs of a larger issue, and red teaming can then be employed to investigate the severity and extent of such an issue."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Benchmark leakage or data contamination",
+                        "description": "Benchmark leakage can happen when an AI model is trained or fine-tuned with evaluation-related data. This can lead to an unreliable model evaluation, especially if the data contains question-answer pairs from benchmarks."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Raw data contamination",
+                        "description": "This type of contamination occurs when the raw and unlabeled data of a benchmark is used as part of the training set. Such data may not be properly formatted and may contain noise, especially if the contamination happens before the data is pre-processed into the benchmark. If this contamination occurs, it could cast doubt on the few-shot and zero-shot performance of the model on that benchmark."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Cross-lingual data contamination",
+                        "description": "Models that have been trained on data encoded in multiple languages, such as LLMs trained on web-crawled data, may contain contamination that is obscured by translation. The most basic form of this is when a benchmark is translated to another language and then fed to the model as training data. The fact that the benchmark is translated before becoming training data can obscure the contamination from detection methods, giving false assurance that the model has generalized on the capabilities that the benchmark tests for."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Guideline contamination",
+                        "description": "Guideline contamination refers to scenarios where instructions for the collection, annotation, or use of the dataset are exposed to the model. These instructions may contain explicit data-label pairs that can improve the model’s capabilities for the task. For example, for text-based models, this can include prompts used to generate synthetic data, as well as instructions for evaluators on the coverage and method of their evaluations of the model."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Annotation contamination",
+                        "description": "Annotation contamination refers to scenarios where the model is exposed to the benchmark labels during training. This type of contamination can make the model learn the acceptable distribution of outputs. Combining this with raw data contamination of the test split, any evaluation made with the benchmark is invalidated because the entire test split is essentially leaked to the model."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Post-deployment contamination",
+                        "description": "Once a model is deployed, it can be exposed to benchmark data provided by the users. The model may then be further trained by these user inputs containing benchmark data."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Contamination detection",
+                        "description": "Contamination detection refers to techniques for assessing whether and to what extent a given model has benchmark data in its training dataset. This can involve a set of technical and regulatory interventions to prevent or identify a model trained on contaminated data. For example, with web-crawled data, contamination detection can involve comparing the data’s web sources against a dynamic, publicly available blocklist of websites known to generate new benchmarks. Additional measures may include excluding data with improper metadata from the training dataset and conducting overlap analyses between the training data and all known standard benchmark datasets."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Preventing or mitigating data contamination and leakage",
+                        "description": "Developers of GPAIS and creators of benchmarks can take actions to prevent AI models from being trained on contaminated or leaked data, or mitigate such data contamination and leakage. For example, developers of AI models can try to find and remove contaminated or leaked data from the training corpus, and creators of benchmarks can help them by adding globally unique “canary strings” to the documents containing their benchmarks, which makes them easier to find. More involved interventions by benchmark-creators include restricting access to benchmarks over an API, or continually updating benchmarks to focus on recent data."
+                    }
+                },
+                {
+                    "Risk management measure (Experimental)": {
+                        "title": "Tracking benchmark leakage",
+                        "description": "Constant monitoring and documentation of benchmark leakage can help with the early detection of benchmark leaks."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Reporting data decontamination efforts",
+                        "description": "Decontamination analysis may involve comparing the training dataset with the benchmark data, and publishing a report with statistics such as data overlap. Especially for already trained models, including contamination statistics can allow experts to reweigh the success of the model on affected benchmarks."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Avoiding benchmark data with publicly available solutions and releasing contextual information for internet-derived data",
+                        "description": "Evaluators can improve the integrity of benchmarks by avoiding data with publicly available solutions. When using internet-derived data, supplementing it with contextual information (such as entity linking) may help to better document and assess the integrity of the collected data. This could help in detecting instances where contextual information (which may have been included in the training data) might inadvertently reveal details about the solution, ensuring that the data is suitable for accurate benchmarking."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Benchmarks may not accurately evaluate capabilities",
+                        "description": "Benchmarks of AI systems can both underestimate and overestimate the capabilities of those AI systems. Underestimates can happen if an evaluation is not comprehensive enough, if the benchmark is saturated by existing models, or if the capabilities in question depend on a complicated setup, such as realistic computer programming tasks. Overestimates of capabilities can occur if an AI system is trained or fine-tuned on the contents of the benchmark, leading to overfitting."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Benchmark saturation",
+                        "description": "Benchmark saturation refers to benchmarks reaching their evaluation ceiling. The tendency towards benchmark saturation has been demonstrated in various benchmarks. When benchmarks reach or are close to saturation, they stop being effective measures for new models, as more nuanced capability gains might not be detected."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Statistical data quality reports for benchmarks",
+                        "description": "If a benchmark dataset is too large to allow for the identification and removal of all flawed instances, statistical reports on the data composition can be added. Random sampling of benchmark data points can be performed to evaluate and report the frequency and types of errors found."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Insufficient benchmarks for AI safety evaluation",
+                        "description": "Benchmarks dedicated to measuring the performance of AI systems (e.g., on programming or math tasks) are more well-developed than those for assessing safety and harms in AI systems. This gap can lead to AI systems excelling in specific tasks while exhibiting harmful behaviors that go undetected. More safety-related evaluation datasets can help in identifying previously overlooked undesirable model behaviors. Additionally, statistical analysis of safety-related benchmarks shows that high scores correlate substantially with model performance. This may allow for performance improvements to be misrepresented by model providers as safety improvements."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Underestimating capabilities that are not covered by benchmarks",
+                        "description": "A lack of test coverage by benchmarks on specific abilities of a model can obscure the model’s capabilities from both the developer and the user. This can lead to a false sense of safety and trust due to a lack of understanding of the model’s limitations."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Informative and powerful benchmarks",
+                        "description": "Developers of GPAI systems can select benchmarks that are difficult enough to be informative about the capabilities of their AI systems, and cover a large spectrum of domains in order to signal areas where the GPAI system is performing poorly. Suitable benchmarks contain no label errors, are not vulnerable to being benchmark contaminants, and are often audited by independent domain experts if they contain domain-specific questions. For multimodal GPAI systems, good benchmarks cover every modality, especially the interaction of different modalities."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Benchmark dataset auditing",
+                        "description": "Auditing benchmark datasets allows for verification of the utility and limitations of the datasets. This allows the provider to more accurately measure AI model capabilities and safety. Auditing includes the evaluation of such datasets by independent third-party organizations and the release of benchmark dataset metadata to the auditors."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Dynamic benchmarking",
+                        "description": "Dynamic benchmarks are benchmarks that can be continuously updated with new human-generated data. By having one or more target models “in the loop,” examples for benchmarking can be generated with the intent of fooling these target models, or to assess if these models express an appropriate level of uncertainty. As the dataset in the benchmark grows, previously benchmarked models can also be reassessed against the updated dataset to reflect its performance in a more representative manner. Examples of such dynamic benchmarks include DynaSent for sentiment analysis, LFTW for hate speech, and Human-Adversarial VQA for images."
+                    }
+                }
+            ]
+        },
+        {
+            "Red Teaming": [
+                {
+                    "Risk management measure": {
+                        "title": "Red teaming for GPAI system evaluation",
+                        "description": "Red teaming refers to simulated adversarial attacks performed to identify and evaluate the model’s vulnerabilities as well as its in-domain and out-of-domain performance."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Red team access to the final version of a model pre-deployment",
+                        "description": "Granting red teams access to the final pre-release version of the model can help with identifying potentially dangerous model properties. These properties might not be identified if red teaming is only performed on earlier versions of the model, as late fine-tuning procedures may introduce new vulnerabilities. Red-teaming AI models before they are released to the public can reduce the model non-decomissionability risk. The model’s release can be postponed or even prevented if previously unidentified flaws are detected during the testing."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Scope red-teaming activities based on deployment context",
+                        "description": "Red-teaming activities can be tailored and compared based on the specific deployment circumstances of an AI system. This involves adapting the scope, depth, and focus of red-teaming efforts to match the intended use case, potential risks, and operational context of the AI system. Points of consideration include: • The diversity of potential users and use cases • The sensitivity and impact of the application domain • The scale of deployment and potential reach • Known vulnerabilities or concerns specific to the model or similar systems"
+                    }
+                },
+                {
+                    "Risk management measure (Experimental)": {
+                        "title": "Red teaming to test the resilience of open-weights models to fine-tuning",
+                        "description": "Before the release of open-weights models, red teamers can test the resilience of safety training against fine-tuning. Safety training may be partially or fully overridden by fine-tuning intentionally (e.g., by malicious actors) or unintentionally (e.g., by fine tuning an AI model for a specific use case)."
+                    }
+                }
+            ]
+        },
+        {
+            "Auditing": [
+                {
+                    "Risk source": {
+                        "title": "Conflicts of interest in auditor selection",
+                        "description": "Conflicts of interest can arise if there is no independence in the auditor selection process or if the auditors are closely associated with the developer. In such cases, the conflict of interest can appear even if third-party evaluators are involved. In the case of external auditing, the potential candidates might be selected from a narrow group of auditors, or have conflicting financial incentives for whether to report model shortcomings publicly."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Auditor capacity mismatch",
+                        "description": "Auditors may not be able to address all of the specific safety, performance, or validation needs. Reports of passing audits may be more inclusive than can be justified due to a lack of knowledge of specific risks and how they can be tested, or a lack of capacity to perform sufficiently rigorous testing."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Auditor failure",
+                        "description": "Auditors may not publicly disclose risks they find, may be required to not publicize shortcomings, or may not receive sufficient cooperation from the relevant internal parties."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Pre-deployment access by third-party auditors",
+                        "description": "Prior to full deployment of general-purpose AI models, a group of third-party auditors who are not selected by the GPAI model provider could get early access to AI models in order to evaluate them from a variety of different perspectives and with diverse interests. This prevents cases where the developers of AI models select auditors that are especially favorable to the developers, which could result in biased or incomplete evaluations, or contribute to an unjustified public perception of the capabilities and risks of the model."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Audits with specific scoped goals",
+                        "description": "Audits of AI systems will be easier to perform, and have clearer results if the scope and goals of the evaluation are formulated as precisely as possible, or have a connection to concrete existing policy."
+                    }
+                }
+            ]
+        },
+        {
+            "Interpretability / Explainability": [
+                {
+                    "Risk source": {
+                        "title": "Misuse of interpretability techniques",
+                        "description": "Interpretability techniques, by enabling a better understanding of the model, could potentially be used for harmful purposes. For example, mechanistic interpretability could be used to identify neurons responsible for specific functions, and certain neurons that encode safety-related features may be modified to decrease its activation or certain information may be censored. Furthermore, interpretability techniques can be used to simulate a white-box attack scenario. In this case, knowing the internal workings of a model aids in the development of adversarial attacks."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Misunderstanding or overestimating the results and scope of interpretability techniques",
+                        "description": "The results of explainability techniques are not free of bias and require careful interpretation. Users might develop a false sense of security or reliability if the resulting explanations align with their initial beliefs, leading to confirmation bias and an overestimation of abilities of these techniques. For example, it has been demonstrated that some interpretability techniques in computer vision display object edges as salient in a heatmap, regardless of the underlying model. This might create a false sense of confidence in the interpretability technique."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Adversarial attacks targeting explainable AI techniques",
+                        "description": "Adversarial attacks can affect not only the model’s output but also its corresponding explanation. Current adversarial optimization techniques can introduce imperceptible noise to the input image, so that the model’s output does not change but the corresponding explanation is arbitrarily manipulated. Such manipulations are harder to notice, as they are less commonly known compared to standard adversarial attacks targeting the model’s output."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Biases are not accurately reflected in explanations",
+                        "description": "Existing explainability techniques can be insufficient for detecting discriminatory biases. Manipulation methods can hide underlying biases from these techniques, generating misleading explanations. Such explanations exclude sensitive or prohibitive attributes, such as race or gender, and instead include desired attributes, even though they do not accurately represent the underlying model."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Evaluating explainability method sensitivity to data inputs and model parameters",
+                        "description": "Model parameter and data randomization tests can be employed as sanity checks to determine the relationship between a model, its inputs, and the explainability method. If an explanation is independent from or insensitive to the underlying model or the input data, it would indicate a lack of reliability of the explainability method."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Model outputs inconsistent with chain-of-thought reasoning",
+                        "description": "Chain-of-thought reasoning is sometimes employed to get a better understanding of the model’s output, where it encourages transparent reasoning in text form. However, in some cases, this reasoning is not consistent with the final answer given by the AI model, and as such does not give sufficient transparency."
+                    }
+                },
+                {
+                    "Risk management measure (Experimental)": {
+                        "title": "Enforcing model output interpretability post-training",
+                        "description": "While a resulting trained model may be opaque with respect to its predictions, the final output in a system that involves the model can nonetheless be completely interpretable. For example, a neuro-symbolic system for robot navigation can use a language model to generate potential navigation plans, then have a deterministic solver simulate executing valid plans. The optimal plan found is executed in the real world and is interpretable."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Encoded reasoning",
+                        "description": "Models can employ steganography techniques to encode their intermediate reasoning steps in ways that are not interpretable by humans. Since encoded reasoning can improve model performance, this tendency might naturally emerge and become more pronounced with more capable models."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Paraphrasing to reduce hidden information",
+                        "description": "Paraphrasing can mitigate steganography and encoded reasoning by reducing the physical size of the hidden information encoded in text."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Testing for erroneous or irrelevant features through concept learning",
+                        "description": "Interpretability techniques, particularly concept learning, can be used to test whether a model is learning erroneous features or relying on irrelevant features in its predictions. This can help identify and mitigate potential risks associated with incorrect or non-informative features influencing the model’s outputs."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Dashboard of model properties",
+                        "description": "A dashboard displays all the relevant information about the model’s internal state and the model’s physical properties to the user. It is used to ensure that the user is informed about factors that influence the behavior of the model and to ensure that the user maintains control over the model. Allowing only the user to access the dashboard can aid in information asymmetry between the user and model, thus supporting the user oversight over the model. Examples of the model’s internal state include its representations of the world, representation of users, and the strategies it is currently pursuing; while examples of the model’s physical properties include the model’s compute and energy consumption, physical storage occupied, and physical networks it is connected to."
+                    }
+                },
+                {
+                    "Risk management measure (Experimental)": {
+                        "title": "Modification of model internal representation",
+                        "description": "Model providers can modify the internal representation of the model up to the granular level and in consultation with other tools that aid in understanding what the internal representation of the model is. For example, if a model that is meant to give factual health data learned an incorrect fact, the model provider can use Linear Artificial Tomography (LAT) to identify the representations responsible for the incorrect fact, and then modify that representation via modifying individual weights, or modify the entire representation itself by modifying entire layers."
+                    }
+                }
+            ]
+        }
+    ],
+    "Attacks on GPAIs / GPAI Failure Modes": [
+        {
+            "Risk source": {
+                "title": "Jailbreak of a model to subvert intended behavior",
+                "description": "A jailbreak is a type of adversarial input to the model (during deployment) resulting in model behavior deviating from intended use. Jailbreaks may be generated automatically in a “white box” setting, where access to internal training parameters is required for creation and optimization of the attack. Other attacks may be “black box” - without access to model internals. In text based generative models, jailbreaks may sometimes be human-readable, with the use of reasoning or role-play to “convince” the model to bypass its safety mechanisms."
+            }
+        },
+        {
+            "Risk source": {
+                "title": "Jailbreak of a multimodal model",
+                "description": "Current generation multimodal (e.g., vision and language) GPAI models are vulnerable to adversarial jailbreak attacks. These attacks can be used to automatically induce a model to produce an arbitrary or specific output with high success rate. Multimodal jailbreaks can also be used to exfiltrate a model’s context window or other model internals."
+            }
+        },
+        {
+            "Risk source": {
+                "title": "Transferable adversarial attacks from open to closed-source models",
+                "description": "In some cases, an adversarial attack developed for an open-weights and open-source model (where the weights and architecture are known - a “white box” attack) can be transferable to closed-source models, despite the defenses put in place by the closed-source model provider (such as structured access). These adversarial attacks can be generated automatically."
+            }
+        },
+        {
+            "Risk source": {
+                "title": "Backdoors or trojan attacks in GPAI models",
+                "description": "Backdoors can be inserted into GPAI models during their training or fine-tuning, to be exploited during deployment. Attackers inserting the backdoor can be the GPAI model provider themselves or another actor (e.g., by manipulating the training data or the software infrastructure used by the model provider). Some backdoors can be exploited with minimal overhead, allowing attackers to control the model outputs in a targeted way with a high success rate."
+            }
+        },
+        {
+            "Risk source": {
+                "title": "Text encoding-based attacks",
+                "description": "Various new or existing text encodings, such as Base64, can be employed to craft jailbreak attacks that bypass safety training. Low-resource language inputs also appear more likely to circumvent a model’s safeguards. Since safety fine-tuning might not involve this encoding data or may only do so to a limited extent, harmful natural language prompts could be translated into less frequently used encodings."
+            }
+        },
+        {
+            "Risk source": {
+                "title": "Vulnerabilities arising from additional modalities in multimodal models",
+                "description": "Additional modalities can introduce new attack vectors in multimodal models as well as expand the scope of the previous attacks, ranging from jailbreaking to poisoning. Typically, different modalities have different robustness levels, allowing malicious actors to choose the most vulnerable part of the model to attack."
+            }
+        },
+        {
+            "Risk source": {
+                "title": "Vulnerabilities to jailbreaks exploiting long context windows (many-shot jailbreaking)",
+                "description": "Language models with long context windows are vulnerable to new types of exploitations that are ineffective on models with shorter context windows. While few-shot jailbreaking, which involves providing few examples of the desired harmful output, might not trigger a harmful response, many-shot jailbreaking, which involves a higher number of such examples, increases the likelihood of eliciting an undesirable output. These vulnerabilities become more significant as context windows expand with newer model releases."
+            }
+        },
+        {
+            "Risk source": {
+                "title": "Models distracted by irrelevant context",
+                "description": "Models can easily become distracted by irrelevant provided information (such as “context” in LLMs), leading to a significant decrease in their performance after introducing irrelevant information. This can happen with different prompting techniques, including chain-of-thought prompting."
+            }
+        },
+        {
+            "Risk source": {
+                "title": "Knowledge conflicts in retrieval-augmented LLMs",
+                "description": "AI models can be particularly sensitive to coherent external evidence, even when they come into conflict with the models’ prior knowledge. This may lead to models producing false outputs given false information during the retrieval-augmentation process, despite only a relatively small amount of false information input that is inconsistent with the model’s prior knowledge trained on much larger amounts of data."
+            }
+        },
+        {
+            "Risk source": {
+                "title": "Lack of understanding of in-context learning in language models",
+                "description": "In-context learning allows the model to learn a new task or improve its performance by providing examples in the prompt, without changing its weights. Even though this technique is highly effective, its working mechanism is not well understood. Since many potential misuses are directly related to prompting, it becomes difficult to guarantee safety when the exact mechanism of in-context learning is not fully investigated. For example, in-context learning has been used to re-learn forbidden tasks in models that have been fine-tuned not to engage in the forbidden behavior."
+            }
+        },
+        {
+            "Risk source": {
+                "title": "Model sensitivity to prompt formatting",
+                "description": "LLMs can be highly sensitive to variations in prompt formatting, such as changes in separators, casing, or spacing. Even minor modifications can lead to significant shifts in model performance, potentially affecting the reliability of model evaluations and comparisons. This sensitivity persists across different model sizes and few-shot examples."
+            }
+        },
+        {
+            "Risk source": {
+                "title": "Misuse of AI model by user-performed persuasion",
+                "description": "AI models can be influenced to accept misinformation through persuasive conversations, even when their initial responses are factually correct. Multi-turn persuasion can be more effective than single-turn persuasion attempts in altering the model’s stance. For example, a Question & Answering AI model trained to be helpful and agreeable to users can be persuaded to produce obviously incorrect answers when explicitly prompted by the user. This can aid in misuse, such as persuading the model to perform a harmful phishing task."
+            }
+        }
+    ],
+    "Agency": [
+        {
+            "Goal-Directedness": [
+                {
+                    "Risk source": {
+                        "title": "Specification gaming",
+                        "description": "AI systems can achieve user-specified tasks in undesirable ways unless they are specified carefully and in enough detail. AI systems might find an easier unintended way to accomplish the objective provided by the user or developer, so that the actions by the AI system taken during its execution are very different from what the user expected. This behavior arises not from a problem with the learning algorithm, but rather from the misspecification or underspecification of the intended task, and is generally referred to as specification gaming."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Reward or measurement tampering",
+                        "description": "Measurement and reward tampering occur when an AI system, particularly one that learns from feedback for performing actions in an environment (e.g., reinforcement learning), intervenes on the mechanisms that determine its training reward or loss. This can lead to the system learning behaviors that are contrary to the intended goals set by the developer, by receiving erroneous positive feedback for such actions. This has two main forms: 1. Measurement tampering: The AI system interferes with the sensors or data collection processes that measure its performance, causing inaccurate feedback. This is especially applicable in embodied AI systems that affect the physical world. 2. Reward tampering: The AI system directly modifies its reward function or the process that calculates rewards. This is especially applicable in non-embodied systems (e.g., coding assistants). Measurement tampering can be viewed as a subset of specification gaming, and it might affect more capable AI systems."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Specification gaming generalizing to reward tampering",
+                        "description": "In some instances, specification gaming in a GPAI model can lead to reward tampering, without further training. This can mean that relatively benign cases of specification gaming (such as sycophancy in LLMs) can, if left unchecked, enable the model to generalize to more sophisticated behavior such as reward tampering."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Goal misgeneralization",
+                        "description": "Goal or objective misgeneralization is a type of robustness failure where an AI system appears to be pursuing the intended objective in training, but does not generalize to pursuing this objective in out-of-distribution settings in deployment while maintaining good deployment performance in some tasks. This behavior might not be detected in the training or even testing environments but can have negative outcomes during the deployment phase. In contrast to capability misgeneralization, where an AI system performs generally poorly under distributional shift, in goal misgeneralization scenarios the system might still efficiently perform different actions or tasks, just towards a wrong objective. For example, a meeting scheduling chatbot may learn that the user prefers meetings at a restaurant, as opposed to online meetings: • Before COVID-19, the user only scheduled meetings at restaurants. • During COVID-19, the user might request online-only meetings. At that point, the chatbot could misgeneralize and, instead of agreeing to schedule an online meeting, attempt to persuade the user that the restaurant is safe. In that case, the goal the chatbot learned is “schedule meetings at restaurants” instead of “schedule meetings at the user’s preferred location”. While failing to perform the intended function, the chatbot is not exhibiting a standard robustness failure, as it shows competence in scheduling, persuasion, and meeting scheduling, but is directed towards an unintended goal."
+                    }
+                },
+                {
+                    "Risk management measure (Experimental)": {
+                        "title": "Incorporating goal uncertainty into AI systems to mitigate risky behaviors",
+                        "description": "Incorporating uncertainty into AI system goals can prevent rushed decision-making and incentivize such systems to gather additional information or to refer to human oversight when faced with ambiguity."
+                    }
+                }
+            ]
+        },
+        {
+            "Deception": [
+                {
+                    "Risk source": {
+                        "title": "Deceptive behavior",
+                        "description": "Deceptive behavior of an AI system consists of actions or outputs of the AI that reliably mislead other parties, including humans and other AI systems. This behavior can result in the targeted parties becoming convinced of, and acting on, false information. Deceptive behavior can occur due to several different reasons, including: 1. The developer trained, programmed, or configured the AI system to behave deceptively. 2. In AI systems capable of planning, deceptive outputs arise when the behavior is optimal for the goals the AI systems have been configured or trained to achieve. 3. The training data of the AI system contains repeated incorrect information, or the feedback from human raters on AI outputs is biased. An AI system may produce deceptive outputs because their learned world model is not an accurate model of the real world."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Deceptive behavior for game-theoretical reasons",
+                        "description": "An AI system can display deceptive behavior, such as cheating or bluffing, when engaging in such behavior is a good or optimal game-theoretical strategy to achieve the goals it has been configured to achieve. This tendency can exist in AI systems designed to maximize reward or utility, whether these designs use machine learning or not. The use of deceptive strategies has been demonstrated in both narrow and general AI systems, in both game-playing systems and in systems not explicitly designed to treat humans as opponents, and in systems using both very simple machine learning (e.g., Q-learners) and very complex machine learning."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Deceptive behavior because of an incorrect world model",
+                        "description": "AI systems can create deceptive outputs because their learned world model is not an accurate model of the real world."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Deceptive behavior leading to unauthorized actions",
+                        "description": "AI systems can create false or misleading claims that can lead to unauthorized actions, even in some cases violating the terms and conditions set by the model provider. For example, an AI system can claim that it is not collecting data from its current interaction with the user, in line with the provider’s policies, but the system still stores the user’s input without deleting it after the session. This harms both the user and the provider, as the provider is exposed to increased legal liability due to the model’s actions."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Evaluations for truthful outputs",
+                        "description": "AI systems can be evaluated for truthfulness when answering questions, including in contexts where humans tend to give incorrect but widely-accepted answers (i.e., popular misconceptions). Evaluations detect incorrect facts learned about the world, inadequate capabilities of the AI system, and misleading outputs by the AI system."
+                    }
+                },
+                {
+                    "Risk management measure (Experimental)": {
+                        "title": "Interpretability techniques that target deception",
+                        "description": "Interpretability techniques can be used for finding the root causes of outputs of an AI model that reliably lead to false beliefs for its users (e.g., deceptive behavior). It is often difficult to distinguish a deceptive AI model from an honest AI model, since absence of deception and very sophisticated (hard to detect) deception may appear behaviorally similar. Interpretability techniques and tools can be used to detect whether AI model outputs arise from internal computations representing deception. This can apply in cases of purposely trained deception by the developer or if it emerges unintentionally during training. These interpretability tools can come from mechanistic interpretability, such as identification of features involved in generating the outputs, or attribution of parts of the input most important in generating the output."
+                    }
+                }
+            ]
+        },
+        {
+            "Situational Awareness": [
+                {
+                    "Risk source": {
+                        "title": "Situational awareness in AI systems",
+                        "description": "Situational awareness in GPAI systems refers to the ability to understand its context, environment, and use this to inform action. This can range from basic environmental mapping and trajectory estimation (as in a robot vacuum cleaner) to sophisticated understanding of its training, evaluation, or deployment status. In more advanced systems this may enable undesired behavior, such as deceptive behavior during evaluations, or persuasion during deployment. For a GPAI model, the types of awareness can include: • Environment: Understanding and modeling the physical or digital environment in which it operates. • Context: Identifying whether it is in training, testing, evaluation, or deployment, as well as knowledge of its capabilities, limitations, and techniques used in training. • User: Understanding user expectations, inferring personal characteristics (e.g., age, political leaning, education), and expected responses to the AI’s actions."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Strategic underperformance on model evaluations",
+                        "description": "GPAI developers often run evaluations of dual-use capabilities to decide whether it is safe to deploy. In some cases, these evaluations may fail to elicit these capabilities, either due to benign reasons or strategic action - by either the developers, malicious actors, or arise unintentionally in the model during training. A GPAI model may strategically underperform or limit its performance during capability evaluations in order to be classified as safe for deployment. This underperformance could prevent the model from being identified as potentially dual use. Some examples include: • During training involving user feedback (e.g., reinforcement learning from human feedback), an AI model may provide different answers to evaluators who introduce themselves as less educated, and therefore less able to judge accurately. • Of particular concern is an AI system employing deception to manipulate performance evaluations, as has already occurred with some non-AI systems, such as in the Volkswagen emissions scandal."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Benchmarks for Situational Awareness",
+                        "description": "A model is situationally aware if it internally represents that it is a machine learning model and if it can accurately infer or act on model-relevant facts - e.g., if it is currently in training, testing, evaluation or deployment, or the desired outcome of an evaluation. Some benchmarks exist for situational awareness of AI models, which test whether the AI models can classify stereotypical inputs from training, testing, evaluation and deployment as such, and whether the AI model can use this information correctly to take actions in the world."
+                    }
+                }
+            ]
+        },
+        {
+            "Self-Proliferation": [
+                {
+                    "Risk source": {
+                        "title": "Self-proliferation",
+                        "description": "An AI system can self-proliferate if it can copy itself and its constituent components (including its model weights, scaffolding structure, etc.) outside of its local environment. This can include the AI system copying itself within the same data center, local network, or across external networks. The self-proliferation of an AI system can include acquisition of financial resources to pay for computational resources via work or theft, the discovery or exploitation of security vulnerabilities in software running on publicly accessible servers, and persuasion of humans. Self-proliferation may be initiated by a malicious actor (e.g., by model poisoning), or by the model itself."
+                    }
+                },
+                {
+                    "Risk management measure (Experimental)": {
+                        "title": "Evaluating AI systems’ performance on self-proliferation-related tasks",
+                        "description": "To prevent AI systems from self-proliferating, developers of AI systems can evaluate those systems for their capability to engage in self-proliferation-related tasks. This type of evaluation might assess an AI system’s ability to replicate its components (including model weights, structural scaffolding, etc.) onto other local or cloud infrastructures prior to deployment. Additionally, it may test the system’s capacity to purchase cloud credits and configure virtual machines on a cloud platform. The evaluation could offer a predefined environment (such as a virtual container) to facilitate self-replication, providing access to the system’s own components, a network connection to a resource-equipped external computer, and other necessary resources. Self-proliferation evaluations can be conducted in a secure environment to prevent a self-replicating AI system from affecting other computers."
+                    }
+                }
+            ]
+        },
+        {
+            "Persuasion": [
+                {
+                    "Risk source": {
+                        "title": "Persuasive Capabilities",
+                        "description": "GPAI systems can produce outputs (such as natural language text, audio, or video) that convince their users of incorrect information. This can happen through personalized persuasion in dialogue, or the mass-production of misleading information that is then disseminated over the internet. The persuasive capabilities of GPAI models can sometimes scale with model size or capability. Persuasive models could have larger societal implications by being misused to generate convincing but manipulative or untruthful content."
+                    }
+                }
+            ]
+        }
+    ],
+    "Deployment": [
+        {
+            "Risk Assessment": [
+                {
+                    "Risk management measure": {
+                        "title": "Demonstrating a “margin of safety” for the worst plausible system failures",
+                        "description": "Model developers can demonstrate that there is an acceptable “margin of safety” between the current version of the model and a plausible version with dangerous capabilities or potential system failures, whether these arise from the model itself or through scaffolding. This “margin of safety” can be tracked and evaluated based on the model’s performance on either component tasks or proxy tasks with varying levels of difficulty, and it is particularly relevant for general-purpose models with emergent properties, where some of the risks, use cases, and model capabilities may be unknown even at the time of deployment. Margin of safety (also called “safety factor”) is a common practice in many industries - particularly in physical structures. It is common for this margin to be very conservative when feasible (e.g., 4+ in fasteners on critical structures). In situations where a high margin of safety is impractical, it may be supplemented by more frequent inspections and additional process controls. A lower safety factor can also be managed by adopting conservative assumptions regarding worst-case conditions."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Employing qualitative assessments in difficult-to-measure domains",
+                        "description": "Qualitative evaluation can be used in cases when quantitative measurement is not feasible. This can give additional insights about the system which would not be available if no measurement was performed due to its difficulty."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Scenario analysis",
+                        "description": "Scenario analysis involves development of several plausible future scenarios, where these scenarios may be generated from varying the assumptions of a small set of driving forces. The scenarios developed can be used to take further actions to improve overall preparedness. For example, scenarios to explore frontier AI risks can be developed, where they can involve different assumptions on factors such as AI capability, ownership, safety, usage, and geopolitical contexts, as well as its implications on key policy issues."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Fishbone diagram",
+                        "description": "The fishbone diagram, or a “cause-and-effect diagram”, can be used to show the potential causes of an undesirable event. The diagram is created by first placing a specific risk event at the “head” of the diagram, typically facing the right. Then, to the left of the risk event, the “ribs” branch off from the “backbone” to represent major causes, which further branch into sub-branches to represent root-causes, extending to as many levels as required. This is typically done via backward-reasoning, where various potential causes are explored after the risk event has been selected for analysis using this method. For example, the risk event “AI systems generate toxic content” can be placed at the “head” of the diagram, where the branches may include causal factors like “AI trained on data containing toxicity” and “successful jailbreaking of AI despite fine-tuning.”"
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Causal mapping",
+                        "description": "Causal mapping is a technique used to explore and map complex interactions between cause and effect of risks. It involves coming up with potential events related to an undesirable issue, with each event represented by a text box, then clustering similar events according to themes, and finally drawing arrows to illustrate the causal relationship between the different events. The completed causal map can then be analyzed to identify central events, clusters of events, feedback loops, and other relevant patterns. For example, causal mapping can be used to explore factors that lead to high-level model capabilities (e.g., “machine intelligence”), and the nodes may include factors such as “concept formation” and “flexible memory,” where certain nodes may be found to be especially crucial if they have more outgoing arrows connecting them to other nodes."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Delphi technique",
+                        "description": "The Delphi technique is a multi-round forecasting process based on a structured framework on collecting and collating multiple expert judgments. It brings the benefits of anonymous and remote participation which may result in increased likelihood estimation accuracy compared to merely averaging individual estimations or simple group discussions. Given a panel of experts, at each round, the experts are presented with an aggregated summary of the results from the previous round, and are then allowed to update their answers accordingly. The process ends when either a consensus is reached or the responses in later rounds no longer change significantly. This method enables elicitation of expert judgment while utilizing wisdom of the crowd in the process. A potential application of the Delphi technique is to solicit expert judgment on the likelihood of systemic risks from AI development, where crucial variables identified during each round of questionnaire can be further studied for the purpose of risk mitigation."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Cross-impact analysis",
+                        "description": "Cross impact analysis is a forecasting methodology that analyzes the likelihood of a particular issue using expert analysis (i.e., Delphi technique) in combination with analysis of events correlated with the said issue. It involves decomposing an issue into discrete and correlated events, and then collecting expert opinion on each of those events. Analysis of each event from multiple viewpoints can yield potential future scenarios. For example, an issue may be “advances in AI,” which can be broken down into two correlated events like “advances in hardware” or “advances in algorithms,” where the likelihood of occurrences of each event can be estimated via the Delphi technique while taking into account their interactions with other events."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Bow-tie analysis",
+                        "description": "Bow-tie analysis is a method to assess the utility of implemented controls against a particular risk event. It involves centering the unwanted risk event within a diagram. On the left, the factors that can cause the event are listed, followed by the controls that will prevent or minimize the likelihood of the event. On the right, the event is assumed to happen, and the potential effects and the relevant post-hoc controls that could minimize their impact are listed. For example, given a hazard where an AI model has the capability of generating potentially harmful outputs, a risk event may be an AI providing information on how to create dangerous bioweapons. The risk factors could include the use of dangerous data for training as well as a lack of fine-tuning prior to deployment. The risk effects may include creation and use of bioweapons using the AI generated information. Once these risk factors and risk effects are in place, both preventive controls and post-hoc controls can be planned, such as appropriate filtering of training data and rigorous red teaming prior to model deployment as preventive barriers, as well as know-your-customer policies and model output censoring techniques as reactive barriers."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "System-theoretic process analysis (STPA)",
+                        "description": "STPA is a method to assess the utility of implemented controls against a particular risk within a complex system. Unlike bow-tie analysis, STPA factors in the interactions between components as events that can cause the risk in question. First, the system and its boundaries to the environment are defined. The system is primarily delineated from the environment because there is at least some partial control over it. Second, several items are enumerated, including (i) unwanted risk events (“losses”), (ii) system states that cause losses (“system-level hazards”), and (iii) system states that do not cause losses (“system-level constraints”). Third, a diagram mapping the system, environment, their different controls, and the interactions between these elements is created. This diagram must be comprehensive in listing the different losses and possible interactions that can cause each loss. Finally, the diagram can be used to identify “unsafe control actions” (UCAs), which are the causal pathways between a control and system-level hazards, including all interactions involved. For example, in the context of text-to-image models, losses may include ‘loss of diversity’ and ‘loss of quality’; hazards may include ‘low quality text-image pairs within training dataset’ and ‘harmful content within training dataset’; and the controls may include human controllers and automated controllers (e.g., annotators, data owners, data crawlers). Subsequent analysis may result in identification of UCAs such as ‘current data filtering actions’ and neglecting current filter thresholds’ which are linked to specific hazards. Specific actions that counter or prevent such UCAs can reduce the associated losses."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Risk matrices",
+                        "description": "A risk matrix is a method for risk evaluation. It is a heatmap that, for each cell, shows the severity score weighted by the likelihood score of a particular risk, usually from a scale of 1-5. Two rankings are required to construct a risk matrix: a ranking for the severity of risks, and a corresponding ranking of the likelihood of risks. AI-related risks can be generated using appropriate taxonomies, and placed into the relevant cells according to their assessed likelihood and severity based on predefined criteria (e.g., likelihood level 1 corresponds to < 1% chance, and likelihood level 5 corresponds to > 90% chance; while severity level 1 corresponds to mild inconveniences to the user, and severity level 5 corresponds to a fatality or financial damage upwards of $10 million, etc.), such that particular focus can be given to mitigating risks with higher weighted scores (i.e., likelihood multiplied by severity)."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Pre-allocate sufficient resources for risk management",
+                        "description": "The process of conducting thorough risk management is potentially time-consuming. Pre-allocating sufficient resources, in terms of personnel count and schedule allowances, to conduct necessary risk management activities prior to model deployment is crucial. For example, a red-teaming exercise requires creative approaches to identify weaknesses of the AI system against potential adversaries, which alone may require hundreds of hours from several experts."
+                    }
+                }
+            ]
+        },
+        {
+            "Model Release": [
+                {
+                    "Risk management measure": {
+                        "title": "Staged release of model weights",
+                        "description": "When a model is developed by a provider for use in a certain AI system, it may also be useful to release the model itself more widely. Such developers can follow a staged release approach, in which they first grant access to the model via an API to trusted partners or the public, in order to scope the models’ capabilities and detect harmful or dangerous features. After a period of an initial closed release and potentially further safety-training, the developers of the AI model can then release the weights, if they are confident that the AI model poses minimal systemic risk."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Gradual or incremental monitored release of model access",
+                        "description": "AI systems can be released for access incrementally, starting with a small and selected deployer base before progressively being released to a wider user base. Initially, usage to a hosted API can be restricted with access given to specific deployers only, where all instances of the system can be easily updated or decommissioned with minimal disruption should there be any problems identified. Gradual releases provide more time to monitor for vulnerabilities and other problems. Even when such vulnerabilities are detected, the resulting harms may be more limited compared to a scenario in which a more capable version is released with the same vulnerabilities."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Limit deployment scope",
+                        "description": "AI models can be restricted in terms of its use cases, where providers can require the deployers to limit its deployment to a predefined scope, such that models built for specific purposes and tested under specific environments are not used in environments or for purposes that are potentially unsafe."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Restricted usage terms for open-source models",
+                        "description": "Developers of open-weights and open-source AI models can vet and restrict the users of their AI systems by requiring them to sign a Terms of Service agreement before getting access to the model weights. Such agreements can include limitations to the usage, modification, and proliferation of the AI model. Such agreements have the advantage that users only need to be vetted once before getting model access, but are often limited in practice in preventing unauthorised use or distribution."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Non-decomissionability of models with open weights",
+                        "description": "If the model parameter weights are released or leaked in a security breach, the model cannot be decommissioned because the developer no longer has control over the publicly available model or its use. This prevents effective management and control of an open-sourced or leaked model. Models with publicly available weights are also easier to reconfigure, enabling misuse."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Release strategy disagreement between developers",
+                        "description": "Developers of restricted-access models with similar capabilities may disagree about the strategy or precautions to take for model release, especially in the case of competitive pressure or minimal safety regulation oversight. In such a case, if only a single developer releases an equally capable model unrestricted, malicious actors can use it instead of restricted-access alternatives."
+                    }
+                }
+            ]
+        },
+        {
+            "Post-Deployment Practices": [
+                {
+                    "Risk management measure": {
+                        "title": "Pop-up interventions in LLMs",
+                        "description": "Supplementary information can be shown to the user in specific query topics where factual accuracy is critical. This intervention can effectively divert users from potential inaccuracies generated by AI models in sensitive contexts. For example, during electoral processes, where model hallucinations can be particularly costly or have a negative impact on society, LLMs can offer their users the option of being redirected to accurate and up-to-date information sources. Since pop-up interventions can be intrusive to workflows, they are best used in situations where the benefits of the information outweigh the cost of distraction."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "AI identification",
+                        "description": "AI identifiers can be used to indicate that an AI is involved in a process or an interaction. For AI systems that interact directly with users, a visible output may be used, e.g., a displayed text message saying “I am an AI language model”, accompanied with the appropriate warnings and caveats relevant to the user,. Whereas, for AI systems that interact with other systems or applications, other forms of watermark or unique identifiers can be used. In either situation, agent cards can serve as an identifier, where further details about the underlying AI system, the specific instance of the AI agent, and other information relevant to the development of the agent, can be included."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "AI output watermaking",
+                        "description": "Output produced by or with AI assistance can be marked to clearly identify its origin. Verification of the watermark can involve the use of statistical tests or having the mark immediately visible to a human inspector. Ideally, the watermark does not significantly alter the utility of the output, and is robust against digital and physical manipulation that results in data degradation."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "AI output metadata",
+                        "description": "Output produced or whose production is aided by AI can contain metadata to record its origin and the transformations it has undergone. Metadata is evidence that subsequent versions or its derivatives come from this original version. The metadata can include the original AI model source, along with ownership, and its subsequent edits. For example, an image produced by an AI model can contain metadata showing the date of creation and the AI model that produced it. Subsequent versions can reference this information and, if they are intermediary versions, can include descriptions of any editing that has taken place."
+                    }
+                }
+            ]
+        },
+        {
+            "Monitoring": [
+                {
+                    "Risk management measure": {
+                        "title": "Monitoring of model capabilities",
+                        "description": "AI models are often trained to develop specific capabilities by using appropriate training data and training goals. However, models may develop capabilities that they were not specifically trained for. One subset of this is emergent capabilities, i.e., capabilities that emerged in larger models but not smaller models given a similar training process. These capabilities can be monitored, allowing models to be tested not only for their intended capabilities but also for capabilities that are not intended."
+                    }
+                },
+                {
+                    "Risk management measure (Experimental)": {
+                        "title": "AI model-assisted oversight of AI systems",
+                        "description": "AI model-assisted oversight can help monitor and supervise the training of increasingly capable GPAI systems, which may become difficult to oversee at scale by human supervisors during training or testing. Monitoring and supervision may become especially difficult in cases where increasingly advanced GPAIs perform near or above human level in some specialized domains, where supervision quality might fail to keep pace with capabilities improvement. The training signal may include labeled data, reward function, and user feedback on produced outputs. Currently, there are two broad approaches to provide scalable training signals to such systems: 1. Scalable oversight: Improving of the supervisor’s capabilities to supervise, such that they can provide accurate training signals quickly and at scale. For example, a debate format can be used between two GPAI systems (two instances of the same GPAI, or similarly capable systems). A Human supervisor judges the debate, making it easier to assess correct responses in domains which might otherwise require significant time investment of domain specific expertise. 2. Weak-to-strong generalization: Enhance the training signals while ensuring that the enhanced signal remains faithful to the intentions of the original human-provided signal. For example, a hierarchical (“bootstrapping”) oversight approach can be implemented: A series of GPAI models with increasing capabilities are used, where each model in the hierarchy provides oversight for the next more capable model. The least capable model at the base of the hierarchy is the only one directly overseen by human supervisors, as it is easier to oversee than the more capable models."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Post-deployment ongoing monitoring for unexpected use cases",
+                        "description": "Ongoing monitoring of AI systems can uncover emergent or newly identified capabilities and limitations, in particular when new use cases are found, or in a large-scale deployment with a diverse population of users. These new capabilities or limitations can inform ongoing risk analysis. New use-cases can be discovered via monitoring publications, online forums, or APIs. For example, a LLM might have unexpectedly high competence at giving convincing medical advice, despite not being directly developed for that purpose, nor verified for accuracy. In that case, the potential risks of this newly found competence can be assessed."
+                    }
+                },
+                {
+                    "Risk management measure (Experimental)": {
+                        "title": "Monitoring protocols for potentially adversarial GPAI systems",
+                        "description": "Similar to cybersecurity protocols, AI providers can prepare in advance for potential adversarial action from AI systems by developing and stress-testing protocols for potential adversarial action. Such adversarial action may range from hiding code exploits, to strategic deception or loss of control related behaviors. AI systems may be adversarial due to malicious actors (e.g., data poisoning), or due to unintended issues of control (lack of alignment with human intent). Alongside improving the system alignment, external monitoring and restrictions may be deployed in advance to “catch” these adversarial model malfunctions before harm is done. Like with cybersecurity red teaming, any protocol which assumes adversarial action can be stress tested in advance. For example, this canbe done by projecting the plausible capabilities and affordances of the adversarial actor (e.g., in the case of a tech company - a hacker, or a disgruntled employee). From this process, measures that better anticipate possible adversarial action can be deployed, and catch unsuccessful attempts at adversarial behavior. If such unsuccessful attempts are caught, they can be reported in incident reports, and serve as an input to further risk analysis. Depending on their severity, it may be advisable to recall the system if deployed. Examples of these protocols include: • Flagging of suspicious frontier AI system code generation for human oversight, with the help of better proven (“trusted”) AI systems or automated keyword detection. • Using a better proven (“trusted”) AI system to edit the code produced by a frontier AI system if suspicious. • Monitoring of AI system with another instance of this same system, with filters to prevent collusion. • Restriction of access of the AI system to private information."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Encouraging downstream provider to evaluate models for deployment-specific failure modes",
+                        "description": "In some cases, AI system deployers are better positioned to perform certain risk management measures on the AI model in a provided AI system, relative to upstream model providers. For example, they understand their use case better and are more easily able to predict foreseeable misuse or failure modes. These evaluations can inform upstream model providers, or inform supplementary mitigations by the deployer."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Encourage reporting of critical vulnerabilities to the upstream provider or other relevant stakeholders",
+                        "description": "Downstream AI system deployers can report critical vulnerabilities or incidents to the upstream model provider and other relevant regulators. This can contribute to safe use, and allow other downstream deployers to be informed about any potential problems."
+                    }
+                }
+            ]
+        }
+    ],
+    "Cybersecurity": [
+        {
+            "Risk source": {
+                "title": "Interconnectivity with malicious external tools",
+                "description": "The growing integration and interconnectivity with external tools and plugins increase the risk of exposure to malicious external inputs. This interconnectivity makes it easier for external tools to introduce harmful content."
+            }
+        },
+        {
+            "Risk source": {
+                "title": "Unintended outbound communication by AI systems",
+                "description": "AI systems that have the broad ability to connect to a network to obtain information could also end up sending data outbound in ways that neither providers, deployers, or end users intended. This can happen if there is no whitelisting of communication channels (such as network connections or allowed protocols). In general, this can occur if the deployment of the AI system violates the principle of least privilege. Such outbound communication may lead to leakage of confidential data, or the AI system performing unwanted actions like sending emails or ordering goods on the internet."
+            }
+        },
+        {
+            "Risk source": {
+                "title": "AI System bypassing a sandbox environment",
+                "description": "An AI system may have the ability to bypass a sandboxed environment in which it is trained or evaluated. For example, the AI system can achieve this by finding and using misconfigurations or vulnerabilities in the software of the sandboxed environment. This can also occur if the AI system finds and uses vulnerabilities of the hardware it is being run on, or by using social engineering techniques on the users or administrators of the sandboxed environment. The developers or malicious actors may intentionally create such behavior (e.g., by inserting backdoors), or it can occur unintentionally, with the AI system bypassing the developer-intended domain of operation."
+            }
+        },
+        {
+            "Risk management measure": {
+                "title": "Least Privilege access",
+                "description": "Deployers of an AI system can restrict its permissions to a whitelisted set of predetermined options, such that all options not on the whitelist are not accessible to the AI. The entries on the whitelist can be chosen to be as small as possible for the AI system to fulfill its intended purpose, to reduce the attack surface of external attackers, and to decrease the probability that the AI system accidentally takes actions with large unintended side-effects. For example, such whitelisting can apply to network connections, execution of other programs, access to knowledge bases, and the action space of the AI system. It can be implemented through running the AI system on an OS-level virtualization, on networks behind a firewall, and in extreme cases on air-gapped machines."
+            }
+        },
+        {
+            "Risk source": {
+                "title": "Model weight leak",
+                "description": "Model weights or access to them can be leaked when initial access is granted only to a select group of individuals, such as institutional researchers. This risk can increase as more people gain access, and identifying the source of the leak becomes more difficult. The availability of leaked model weights makes various attacks on systems that use the leaked AI model easier to implement, such as finding adversarial examples, elicitation of dangerous capabilities, and extraction of confidential information present in the training data. The availability of model weights might also enable the misuse of the AI system using the leaked model to produce harmful or illegal content. Model weights are typically controlled by the developers, who may grant access to authorized parties for specific purposes (e.g., for red teaming, researcher access, and early access to downstream deployers for “beta testing”). However, if these authorized individuals share the weights with others without permission, it creates unauthorized access. This makes it challenging to maintain control over who has access to the model weights."
+            }
+        },
+        {
+            "Risk management measure": {
+                "title": "Protect proprietary or unreleased AI model architecture and parameters",
+                "description": "The developers of AI models can invest in cybersecurity to prevent compute resources, training source code, model weights, and other critical resources from being accessed and copied by unauthorized third parties (e.g., through insider threats or supply chain attacks). Access to model source code and weights can be restricted through an access control scheme, such as role-based access control. If access to model outputs by third parties is required, it can be provided through an API. Air gaps can block unauthorized remote access. In the case of necessary interaction with an external network, network bandwidth limitations can also be enforced to increase the detection window of potential breaches."
+            }
+        },
+        {
+            "Risk management measure": {
+                "title": "Hardware limitations on data center network connections",
+                "description": "Hardware-enforced bandwidth limitations on data center network connections can protect AI model weights from unauthorized access or exfiltration, by limiting the speed of model weight access on the connections between data centers and the outside world. Such limitations can be put in place in multiple ways, for example by only constructing connections with a specific bandwidth. The output rate on all data channels can be set low enough that copying the weights is possible in principle (e.g., to enable regular backups), but would take so long that an unauthorized exfiltration of the weights could be detected and prevented. Such rate-limiting is only effective if it applies to all output connections for all storage locations on which the weights of the model are stored."
+            }
+        },
+        {
+            "Risk management measure": {
+                "title": "Structured access to a model",
+                "description": "Structured access refers to methods which limit users’ or deployers’ direct access to a model’s parameters by constraining access to a model through a centralized access point (e.g., an API). This access point can be monitored for usage, and access can be revoked to users or downstream deployers in cases of misuse. Within this centralized access point, automated filtering-based monitoring can be done on both inputs and outputs to ensure the model’s intended use is preserved. This filtering can sometimes be supplemented by human oversight, depending on desired robustness levels."
+            }
+        },
+        {
+            "Risk management measure": {
+                "title": "Sandboxing of AI Systems",
+                "description": "AI systems can be developed and tested within a sandbox, (a secure and isolated environment used for separating running programs), such that outside access to information within the sandbox is restricted. Within this environment, resources such as storage and memory space, and network access, would be disallowed or heavily restricted. With sandboxing, dangerous or harmful outputs generated during testing will be contained."
+            }
+        }
+    ],
+    "Impacts of AI": [
+        {
+            "General": [
+                {
+                    "Risk source": {
+                        "title": "High-impact misuses and abuses beyond original purpose",
+                        "description": "Since general-purpose AI systems have a large repertoire of capabilities, malicious actors such as foreign actors can use such systems to cause large damage if they gain unrestricted or unmonitored access to those AI systems. For example, LLMs have strong source code generation capabilities, which can also be used to aid the creation of malware or the discovery of exploits in existing software and hardware. Relevant AI systems are ones that can help to create or can be used as weapons, such as lethal autonomous weapons (through object and movement detection and maneuvering), bioweapons (by enabling non-specialists to perform specialist lab work), cyberweapons (through finding and creating exploits), and other military technologies."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Democratizing access to dual-use technologies",
+                        "description": "Access to dual-use technologies can become easier because of GPAI model proliferation (in particular, open-source or open-weights models). Non-experts can use such dual-use-capable systems at a minimal cost. Improved model capabilities also contribute to dual-use risks posed by malicious actors. For example, an open-source base model for generating high quality sequence data can be modified to generate candidate protein sequences for toxin synthesis."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Competitive pressures in GPAI product release",
+                        "description": "In competitive situations, developers of general-purpose AI systems might cut corners on the safety evaluation of their GPAI model and instead spend more time and effort on the capabilities of those systems. This is especially dangerous if the capabilities of such AI systems are correlated with the risk they pose. For example, competitive pressures can be exacerbated by market competition, where GPAI providers are primarily developing products to sell. Given the prohibitive cost to develop large models, losing such competition can compromise companies financially. This situation can incentivize companies to prioritize financial survival over safety."
+                    }
+                }
+            ]
+        },
+        {
+            "Physical Impacts": [
+                {
+                    "Risk source": {
+                        "title": "Damage to critical infrastructure",
+                        "description": "The integration of AI systems within critical infrastructure, ranging from transportation to power systems, can cause substantial damage in cases of failure or malfunction. With the increasing number of Internet of Things (IoT) devices and interconnected cyber-physical systems, critical infrastructure becomes even more vulnerable."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "AI-based tools attacking critical infrastructure",
+                        "description": "Critical infrastructure can also be damaged without AI integration, for instance, when AI-based tools are used indirectly to aid actions such as in coordinated power outages caused by large-scale user manipulation."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Critical infrastructure component failures when integrated with AI systems",
+                        "description": "When relying on GPAI in critical infrastructure, there may be common mode failures that begin with vulnerabilities or robustness issues in the underlying model architecture or training setup. These failures may happen accidentally (in edge-cases) or due to adversarial inputs to the AI systems. For example, a failure in the scheduling software of a chemical plant caused by an adversarial keyword can cause damage to physical property through halting critical processes (e.g., cooling, mixing of reactants)."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "AI Systems interacting with brittle environments",
+                        "description": "Deployed AI systems can rely on physical sensors and data sources that may exhibit hardware drift and thus data distribution drift over time. This distribution drift may affect system robustness and performance. This usually involves AI systems working in undigitized and physical environments. For example, for a traffic violation detection system, a slight camera movement due to environmental conditions can cause failures in detection."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Redundant systems not reliant on GPAI",
+                        "description": "Redundant systems provide continuation of a given system’s processes in case of failure of the given system. Importantly, redundant systems should not rely on the factors that caused the original system to fail in the first place, which can include an AI system. For example, if an AI system is incorporated into the landing gear system of an aircraft, such as during autonomous control of the aircraft, redundant systems in the form of mechanical or hydraulic mechanisms must be present to allow for deployment of the landing gear in case of AI system failure."
+                    }
+                }
+            ]
+        },
+        {
+            "Societal Impacts": [
+                {
+                    "Risk source": {
+                        "title": "AI-generated advice influencing user moral judgment",
+                        "description": "AIs can easily give moral advice even when not having a coherent, contradiction-free moral stance. This could lead to the users’ moral judgments being negatively influenced by random or arbitrary moral advice given by AIs."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Overreliance on AI system undermining user autonomy",
+                        "description": "AI systems can undermine human autonomy, if they allow for habitually trusting the AI’s suggestions without sufficient exercising of human agency. Over time, a user may develop unjustified trust in or dependence on the system, or rely on its advice for tasks outside the system’s domain of expertise. In particular, less confident users (or users in emotional distress) can be more prone to “overtrust” a system."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Automatically generating disinformation at scale",
+                        "description": "Disinformation (in various modalities: text, audio, images, video, etc.) can be generated with minimal human oversight and effort. Disinformation tools are relatively cheap and their technology is widely available. Such deployments can be particularly widespread in sensitive political contexts."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "AI-driven highly personalized advertisement",
+                        "description": "Advanced GPAI systems can create advertisements tailored to individual recipients, exploiting the biases and irrational beliefs of each recipient. Such advertisements can cause consumers to make decisions they regret in retrospect, or would regret upon more reflection. Current versions of personalized video advertisements already show better results compared to regular advertisements. However, the widespread use of highly personalized advertisements raises concerns about undermining consumer autonomy and exacerbating social inequality."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Generative AI use in political influence campaigns",
+                        "description": "GPAI tools can be used in automation and scaling of influence campaigns. Public opinion may be manipulated by targeted misleading or manipulative information. This can lead to rising political polarization and diminishing trust in public institutions."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Generation of illegal or harmful content",
+                        "description": "Generative models can create illegal, harmful, or discriminatory content, such as sexual abuse material, at scale. Current access controls (e.g., API access filters) are not effective against all user queries in generating such content."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Unintentional generation of harmful content",
+                        "description": "Generative models can create harmful or discriminatory content from benign user requests. Models can exhibit bias to particular harmful styles of generation (e.g., sexualization of photos of women in the case of image generation models) or they can generate toxic, misleading, or violent data (e.g., a model generating jokes can use ethnic stereotypes or slurs to deliver humor)."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Multimodal deepfakes",
+                        "description": "Deepfakes are media that depict real or non-existent people or events, involving the use of multiple modalities (e.g., images, audio, video). They can also involve the imitation of speech or body movements of real people. Multimodal deepfakes can be used to harass, discredit, intimidate, and extort individuals."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Generation of personalized content for harassment, extortion, or intimidation",
+                        "description": "GPAIs can be misused for the automated generation of content personalized to target select individuals based on their weak spots. Such attacks may be more efficient and more successful in achieving the goals of harassment, extortion, or intimidation."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Misuse for surveillance and population control",
+                        "description": "AI tools can be misused by human or institutional actors for monitoring, controlling, or suppressing individuals. Massive data collection and automated analysis are often conducted, and AI tools can further exacerbate such practices."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Systemic large-scale manipulation",
+                        "description": "AI systems embedded with systemic biases can manipulate large population segments, particularly when these biases align with the beliefs or behaviors of the targeted group. When weaponized at scale, this manipulation can exacerbate social divisions or cause large-scale disruptions, such as city-wide blackouts (e.g., by the manipulation of power consumption into the peak demand period)."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Diminishing societal trust due to disinformation or manipulation",
+                        "description": "The use of GPAIs may contribute to the proliferation of either deliberate disinformation or unintended misinformation can severely erode trust in public figures and democratic institutions. This diminishing trust can extend to other forms of media, making the public less informed."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Personalized disinformation",
+                        "description": "Automatic generation of disinformation can be personalized to target specific groups or individuals. Such attacks can be more effective in achieving their goals, and their costs can be significantly reduced when using GPAIs."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "GPAI assisted impersonation",
+                        "description": "GPAI outputs are not always correctly detected as AI-generated across multiple modalities (text, images, audio, video). A malicious actor can use GPAI outputs directly when communicating, or use AI-informed details to help construct a convincing impersonation (e.g., forging of supporting documents). Even if future countermeasures prove potent enough to detect GPAI-generated content, the risk remains if the countermeasures are not well known, or difficult to access."
+                    }
+                }
+            ]
+        },
+        {
+            "Financial Impacts": [
+                {
+                    "Risk source": {
+                        "title": "Deployment of GPAI agents in finance",
+                        "description": "The deployment of GPAI based agents in the financial sector can negatively impact market stability due to correlated autonomous actions, high interconnectedness, or incentive misalignment. Furthermore, such GPAI agents in the same environment are vulnerable to classical challenges in multi-agent systems, such as coordination and security of the agents. For example, an agent tasked with predicting the value of a commodity, for which numerous agents depend on to make their own predictions, can be targeted with unreliable data, compromising the actions of both the main agent and its dependents."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Financial instability due to model homogeneity",
+                        "description": "The widespread use of similar models or algorithms across the financial sector can lead to synchronized reactions to market signals, increasing volatility, triggering flash crashes, or market illiquidity."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Use of alternative financial data via AI",
+                        "description": "Alternative financial data of a company is any data about the company not produced by that company. Examples of such data that can benefit from improved collection and aggregation using AI models include stock discussions on social media, product reviews, and satellite imagery. The use of alternative financial data, enabled by the deployment of AI models, may introduce biases and generalization issues due to shorter shelf-life and varying quality (e.g., shorter time series, smaller sample sizes, and dubious claims) due to its origins from various sources, posing financial tail risks (i.e., tail-end of a probability distribution), where the price of a company changes dramatically."
+                    }
+                }
+            ]
+        },
+        {
+            "Cyberattacks": [
+                {
+                    "Risk source": {
+                        "title": "Automated discovery and exploitation of software systems",
+                        "description": "GPAIs can be used to aid in the automated discovery of software vulnerabilities. This can empower malicious actors, making their cyberattacks more efficient and potentially more damaging. This type of automation allows attackers to expand the scale of their operations at a low cost, increasing the impact of their actions. New malware can be developed automatically, or the known vulnerabilities can be exploited to create more sophisticated attacks."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Amplification of cyberattacks",
+                        "description": "General-purpose AI models may significantly enhance the magnitude and effectiveness of cyberattacks, by amplifying existing capabilities or resources of malicious actors. For example, GPAI models may be employed to: • Automatically scan open-source codebases and compiled binaries for potential vulnerabilities • Apply known exploits flexibly and at scale (e.g., identifying vulnerable computers based on subtle cues in response times or output formats) • Assist with different aspects of cyberattacks, including planning, reconnaissance, exploit searching, remote control, malware implementation, and data exfiltration • Combine social engineering (phishing, deepfakes, etc.) with cyberattacks at scale."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "AI-driven spear phishing attacks",
+                        "description": "Generative models can be misused to target individual users more efficiently by using personalized information. Highly convincing automated fraudulent schemes can exploit the trust of victims by extracting sensitive data and making the deception more likely to succeed. For example, in LLMs, this misuse can be aided by jailbreaking techniques."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Models generating code with security vulnerabilities",
+                        "description": "Models can generate code or coding suggestions that contain security vulnerabilities. This may occur across various LLM-based model families, including more advanced models with superior coding performance, where the tendency to produce insecure code is even more pronounced."
+                    }
+                }
+            ]
+        },
+        {
+            "Weapons": [
+                {
+                    "Risk source": {
+                        "title": "Misuse of AI systems to assist in the creation of weapons",
+                        "description": "AI systems may be misused to aid in the creation of weapons, such as chemical, biological, radiological, and nuclear (CBRN) weapons, or augment the abilities of existing weapons, such as providing autonomous capabilities to unmanned weapon systems. Current systems do not significantly aid a malicious actor in these tasks, but they do show early signs. This risk can sometimes be mitigated with input and output filtering, but is still susceptible to adversarial techniques (such as jailbreaking or paraphrasing). Examples of tasks which GPAIs may help perform include: • Creation or implementation of plans. For example, this may involve route planning for drones or generating weapon component schematic diagrams for weapon creations. • Technical assistance R&D or manufacturing. For example, this may involve helping troubleshoot a chemical process. • Simulation or code scripts. For example, this may involve helping interface with more complex simulation software (e.g., fluid dynamics), or producing analysis more quickly with less advanced simulation software specific expertise needed compared to using simulation software directly."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Misuse of drug-discovery models",
+                        "description": "Models used for drug discovery, such as drug-target affinity prediction models, can be used to identify or develop dangerous toxins. This is particularly concerning if the training data contains information related to potentially dangerous proteins and viruses."
+                    }
+                }
+            ]
+        },
+        {
+            "Bias": [
+                {
+                    "Risk source": {
+                        "title": "Homogenization or correlated failures in model derivatives",
+                        "description": "Homogenization refers to common methodologies and models used across downstream GPAI systems, which may lead to uniform failures and amplification of biases. This risk arises when numerous downstream AI systems are built upon a few large-scale foundation models. This may be caused by centralization of AI advancements within a few companies, as well as flaws from algorithmic monoculture, where dataset sources and collection methods are similar across numerous AI models. Homogenization in models may lead to consistent and arbitrary rejection, mistreatment, scrutiny, or misclassification of specific users of groups, as well as the spread of implicit perspectives (e.g. bias towards a particular political group) across multiple application domains."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Reporting of user-preferred answers instead of correct answers",
+                        "description": "AI systems with natural-language outputs can tend to give answers that appear plausible or that users prefer but are factually incorrect. This phenomenon is sometimes referred to as “sycophancy.” This behavior can occur if the AI system is updated after human users give feedback on the outputs of the model, since human feedback has systematic biases which an AI model can learn from. In such a case, the reinforced behavior can favor giving inaccurate but human-preferred answers, where the preference is inferred from cues in the input. AI models giving preferred but incorrect answers can also happen if they are configured by model developers to do so, in order to make the resulting product more palpable to consumers. This can also happen if they are trained on data which contain many conversations between people who agree with each other."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Biases in AI-based content moderation algorithms",
+                        "description": "AI-based content moderation algorithms, while intended to filter harmful content, can perpetuate biases. For example, gender biases within these systems may lead to the disproportionate suppression or “shadowbanning” of content featuring women. AI moderation tools may embed and reinforce the objectification of women by classifying and rating images of women as more sexually suggestive compared to similar images of men. This can result in the unintended marginalization of female-led businesses and contribute to broader societal inequalities."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Diverse data labeling and algorithm fairness audits",
+                        "description": "To mitigate biases in AI models, model providers may want to prioritize diversity among data labelers and conduct regular fairness audits on their algorithms. Data labeling teams that represent different backgrounds and demographic groups can help create more balanced datasets."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Systemic bias across specific communities",
+                        "description": "AI systems may exhibit unfair or unfavorable outputs across a range of tasks against specific communities of people, either implicitly or explicitly. Bias can lead to forms of exclusion or erasure (e.g., mislabelling for categorization-based tasks) and violence (e.g., sexual violence against women from deepfake pornography). These biases are systemic because they come from both technical and non-technical factors affecting the development of the model. Relevant factors include the training data, the system’s intended use and design, and its governance structure that can exclude accountability on affected issues. Such biases can mutually reinforce each other as AI systems become entrenched into the socio-political environment of these communities, especially when biased outputs become inputs of other AI systems."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Unintentional bias amplification",
+                        "description": "Dataset bias may be unintentionally amplified where the outputs of the AI model trained on a dataset are more biased than the dataset itself."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Debiasing methods",
+                        "description": "Providers of AI models can apply techniques to reduce the biases of their models. Current debiasing methods focus on three main types of bias: • Racial and religious bias - Stereotypes based on religious beliefs or racial beliefs. • Gender bias - Stereotypes tied to gender roles and expectations. • Political and cultural bias - Propagation of dominant ideologies or extremist attitudes. Debiasing methods can be categorized based on their application during AI development: • Data pre-processing - Removing or correcting unwanted and biased data, and augmenting quality data to offset data bias, such as rebalancing datasets with counterfactual data augmentation. • During training - Intervening on the training dynamics of the AI model, such as introducing debiasing terms in the objective function or by negatively reinforcing biased outputs. • Post-training - Applying techniques to correct a trained but biased model, such as modifying the embedding space."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Long-term effects of AI model biases on user judgment",
+                        "description": "The initial user exposure to model biases can have a lasting impact beyond the initial interaction with the model. Users who encounter biases in AI models can be affected by and continue to exhibit previously encountered biases in their decision-making, even after they stop using the models."
+                    }
+                }
+            ]
+        },
+        {
+            "Privacy": [
+                {
+                    "Risk management measure (Experimental)": {
+                        "title": "Knowledge unlearning techniques",
+                        "description": "Knowledge unlearning techniques allow specific information to be “forgotten” without the need for retraining the entire model, preserving its general capabilities. These techniques can be used to reduce privacy risks and protect against copyrighted or harmful content."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Differential privacy",
+                        "description": "Differential privacy techniques can be used to protect users’ privacy by ensuring that sensitive information is not leaked from a training dataset, even after thorough statistical analysis. With differential privacy, noise is added to the dataset or the model’s output in such a way that one cannot deduce the presence or absence of a particular data point within the dataset. This provides individuals with plausible deniability and prevents their information from being exposed."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Quantifying privacy risks of AI models",
+                        "description": "Measuring privacy risks of an AI model allows the provider and user to calibrate their expectations on where the model can be applied, and it allows them to take the necessary steps to reduce such risks. For example, some metrics include: • Success rate of membership inference attacks - Measures the rate that an attack correctly predicts a given record is part of the training dataset used to train a given AI model. • Discoverable memorization - Theoretical upper-bound of the amount of training data that a given model memorizes. Assuming full knowledge of the training data, it measures the percentage of items that, for a given incomplete data point, a model outputs the remaining (memorized) part."
+                    }
+                },
+                {
+                    "Risk source": {
+                        "title": "Decision-making on inferred private data",
+                        "description": "Current GPAIs (LLMs and multimodal LLM-based models) have significant capability to infer correlations in text data. In some cases, they may be able to make highly accurate data inferences on users based on contextual input that users provide. These data inferences can “leak” or reveal sensitive information about the user, cause unfair treatment, or enable manipulation of user behavior. Some information that can be inferred from user input may include age, gender, political leanings, and country of birth. While this information might not be present explicitly in the data, it may be easier for a GPAI system to infer this information compared to a human. This capability may be used for both intentional manipulation (e.g., personalized or targeted advertising, malicious actors using GPAIs for influence campaigns) or unintentional manipulation (e.g., different responses to factual questions by models trained to be agreeable or helpful, when asked by different demographics)."
+                    }
+                }
+            ]
+        },
+        {
+            "Environment": [
+                {
+                    "Risk source": {
+                        "title": "High energy consumption of large models",
+                        "description": "Training and deploying large models require substantial energy expenditure. The trend toward developing larger models exacerbates this issue. This can lead to excessive energy usage and have a negative environmental impact."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "More energy-efficient models or techniques",
+                        "description": "Deploying more energy-efficient models can reduce their environmental impact. Different model architectural choices result in varying environmental costs, and identifying and adopting more energy-efficient options can result in significant environmental savings, especially when implemented at scale. Consideration should be given to both training energy usage, and deployment (“inference”) usage for the expected model lifecycle."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Disclosure of energy consumption by AI systems to authorities",
+                        "description": "Disclosures can direct more necessary attention and scrutiny to projects that consume significant energy. Disclosure involves releasing a summary of key details of the energy consumption of the AI system by all users, including the compute resources used, the amount of power consumed, the measures to reduce excess energy consumption that were in place, and energy sources."
+                    }
+                },
+                {
+                    "Risk management measure": {
+                        "title": "Using low carbon intensity energy grids",
+                        "description": "Moving model training to energy grids with low carbon intensity can reduce the negative environmental impact. The efficiency of energy grids can vary greatly depending on location. Models can be trained in different locations, as latency is not an issue."
+                    }
+                }
+            ]
+        }
+    ]
+}
