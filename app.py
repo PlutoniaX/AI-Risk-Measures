@@ -53,7 +53,7 @@ def main():
 
     # Move category selector to main content area
     selected_category = st.selectbox(
-        "Select Category",
+        "Select AI Risk Category",
         list(data.keys())
     )
 
